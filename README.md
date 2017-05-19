@@ -58,8 +58,38 @@ docker-compose up
 ```
 - Place this on your browser to open the frontend
 ```
-http://localhost:8099/addressbook-admin/all
+http://localhost:8099/addressbook/contact
+```
+- Place this on your browser to open the backend
+```
+ http://localhost:8099/addressbook-admin/all
+```
+## Using the front end
+The frontend presents a form where having the following fields that can be filled
+- First name (Required)
+- Last name (Required)
+- Phone number (Required and Unique). It should be between 9 to 15 digits
+- Email Address (Required)
+- Address (Optional)
+### Validation
+- Frontend : This is the usaul html validation
+- Backend : If the user escapes the frontend validation, he can't bypass this
+Note: The data is only saved if all input are correct
+## Using the backend
+- Opening the backend as in previous step displays all contacts that has been entered.
+- A contact can be Edited, Deleted or Viewed in Detail.
+## Performing Unit Test (Test Driven)
+- open the docker web container from a console
+```
+docker exec -it addressbook_web_1 /bin/bash
 ```
 ```
- http://localhost:8099/addressbook-adm/all
+python manage.py test
 ```
+This runs 6 unit test for the following:
+1. Tests if we can access the link for adding contact (frontend).
+2. Test if the database saves valid data. This should succeed when the inputs are correct.(frontend)
+3. Test when blank data is submited by bypassing frontend validation. This should fail when the data is empty. (frontend)
+4. Test if the url to view all contact from the backemd works.
+5. Test if the url to view the details of a record works and returns the right data.
+6. Test if the url to edit the details of a record works and returns the right data.
